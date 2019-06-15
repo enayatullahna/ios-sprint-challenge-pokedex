@@ -9,6 +9,20 @@
 import UIKit
 
 class AddPokemonViewController: UIViewController {
+    
+    var pokemons: Pokemon?
+    var pokemonController: PokemonController?
+    
+    //MARK: - Outlets
+    @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var pokemonImageView: UIImageView!
+    @IBOutlet weak var idLabel: UILabel!
+    @IBOutlet weak var abilityLabel: UILabel!
+    @IBOutlet weak var typesLabel: UILabel!
+    @IBOutlet weak var savePokemonButton: UIButton! // save outlet
+    
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -16,7 +30,19 @@ class AddPokemonViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-
+    func updateViews() {
+        
+    }
+    
+    // save action button
+    @IBAction func savePokemonTapped(_ sender: Any) {
+        
+    }
+    
+    
+    
+    
+    
     /*
     // MARK: - Navigation
 
