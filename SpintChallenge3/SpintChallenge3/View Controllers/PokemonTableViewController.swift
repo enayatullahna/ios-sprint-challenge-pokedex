@@ -15,11 +15,11 @@ class PokemonTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.tableView.reloadData()
     }
 
     // MARK: - Table view data source
@@ -33,7 +33,8 @@ class PokemonTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PokemonCell", for: indexPath)
 
-        // Configure the cell...
+        let pokemon = pokemonController.pokemons[indexPath.row]
+        cell.textLabel?.text = pokemon.name
 
         return cell
     }
@@ -44,11 +45,9 @@ class PokemonTableViewController: UITableViewController {
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            // Delete the row from the data source
+            pokemonController.pokemons.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+        }
     }
     
 
@@ -59,8 +58,18 @@ class PokemonTableViewController: UITableViewController {
     // Prepare for segue
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "ShowPokemon" {
+            if let pokemonVC = segue.destination as? PokemonDetailViewController {
+                if let indexPath = tableView.indexPathForSelectedRow {
+                    pokemonVC.pokemons = pokemonController.pokemons[indexPath.row]
+                }
+                pokemonVC.pokemonController = pokemonController
+            }
+        } else if segue.identifier == "SearchPokemon" {
+            if let pokemonSVC = segue.destination as? AddPokemonViewController {
+                pokemonSVC.pokemonController = pokemonController
+            }
+        }
     }
     
 
