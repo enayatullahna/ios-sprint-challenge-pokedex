@@ -11,8 +11,8 @@ import UIKit
 class AddPokemonViewController: UIViewController, UISearchBarDelegate {
     
     var pokemon: Pokemon?
-    var pokemonController: PokemonController?
-    var pokemonContrl = PokemonController()
+    var pokemonControl: PokemonController?
+    var pokemonContrller = PokemonController()
     
     //MARK: - Outlets
     @IBOutlet weak var searchBar: UISearchBar!
@@ -29,7 +29,7 @@ class AddPokemonViewController: UIViewController, UISearchBarDelegate {
         super.viewDidLoad()
         
         searchBar.delegate = self
-        
+        // label at load
         titleLabel.text = ""
         typesLabel.text = ""
         idLabel.text = ""
@@ -43,7 +43,7 @@ class AddPokemonViewController: UIViewController, UISearchBarDelegate {
         guard let searchAPokemon = searchBar.text?.lowercased(), searchBar.text != "" else { return } // make sure its not empty
         
         
-        pokemonController?.pokemonSearch(with: searchAPokemon, completion: { (result) in
+        pokemonContrller.pokemonSearch(with: searchAPokemon, completion: { (result) in
             
             do {
                 let pokemon = try result.get()
@@ -92,7 +92,7 @@ class AddPokemonViewController: UIViewController, UISearchBarDelegate {
     // save action button
     @IBAction func savePokemonTapped(_ sender: Any) {
         guard let pokemon = pokemon else {return}
-        pokemonContrl.pokemon.append(pokemon)
+        pokemonContrller.pokemon.append(pokemon)
         navigationController?.popViewController(animated: true)
 //        searchBar.text = ""
     }

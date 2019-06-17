@@ -12,6 +12,7 @@ class PokemonTableViewController: UITableViewController {
     
     var pokemonController = PokemonController()
 //    var pokemonController: PokemonController?
+    var pokemon: [Pokemon] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,7 +69,7 @@ class PokemonTableViewController: UITableViewController {
         
         if segue.identifier == "SearchPokemon" { // search
             let pokemonAddVC = segue.destination as! AddPokemonViewController
-            pokemonAddVC.pokemonController = pokemonController
+            pokemonAddVC.pokemonContrller = pokemonController
             
         } else if segue.identifier == "ShowPokemon" { // detail
             let pokemonAddVC = segue.destination as! PokemonDetailViewController
