@@ -8,10 +8,11 @@
 
 import UIKit
 
-class AddPokemonViewController: UIViewController {
+class AddPokemonViewController: UIViewController, UISearchBarDelegate {
     
-    var pokemons: Pokemon?
+    var pokemon: Pokemon?
     var pokemonController: PokemonController?
+    var pokemonContrl = PokemonController()
     
     //MARK: - Outlets
     @IBOutlet weak var searchBar: UISearchBar!
@@ -26,31 +27,74 @@ class AddPokemonViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        searchBar.delegate = self
+        
+        titleLabel.text = ""
+        typesLabel.text = ""
+        idLabel.text = ""
+        abilityLabel.text = ""
+        savePokemonButton.isHidden = true
     }
     
-    func updateViews() {
+    // Search button was clicket
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        
+        guard let searchAPokemon = searchBar.text?.lowercased(), searchBar.text != "" else { return } // make sure its not empty
+        
+        
+        pokemonController?.pokemonSearch(with: searchAPokemon, completion: { (result) in
+            
+            do {
+                let pokemon = try result.get()
+                self.pokemon = pokemon
+                
+                DispatchQueue.main.async {
+                    self.updateViews(with: pokemon)
+                }
+            } catch {
+                NSLog("Error searching for Pokemon \(error)")
+                return
+            }
+        })
+    }
+    
+    //Update view
+    func updateViews(with pokemon: Pokemon?) {
+        
+        guard let pokemon = pokemon else { return }
+        
+        //
+        titleLabel.text = pokemon.name
+        idLabel.text = String(pokemon.id)
+        
+        
+        // Pokemon
+        let pokemonType: [String] = pokemon.types.map{ $0.type.name}
+        typesLabel.text = "\(pokemonType.joined(separator: ", "))"
+        
+        // power or ability
+        let pokemonPower: [String] = pokemon.abilities.map{ $0.ability.name }
+        abilityLabel.text = "\(pokemonPower.joined(separator: ", "))"
+        
+        //image url
+        guard let url = URL(string: pokemon.sprites.frontDefault),
+            let image = try? Data(contentsOf: url) else { return }
+        
+        
+        pokemonImageView.image = UIImage(data: image)
+        savePokemonButton.isHidden = false
+        
+        navigationItem.title = pokemon.name
         
     }
     
     // save action button
     @IBAction func savePokemonTapped(_ sender: Any) {
-        
+        guard let pokemon = pokemon else {return}
+        pokemonContrl.pokemon.append(pokemon)
+        navigationController?.popViewController(animated: true)
+//        searchBar.text = ""
     }
-    
-    
-    
-    
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

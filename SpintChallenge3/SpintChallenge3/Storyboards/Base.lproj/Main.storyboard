@@ -11,7 +11,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Pokemon Table View Controller-->
+        <!--Pokemon List-->
         <scene sceneID="0lT-mF-L2s">
             <objects>
                 <tableViewController id="XaO-h2-taf" customClass="PokemonTableViewController" customModule="SpintChallenge3" customModuleProvider="target" sceneMemberID="viewController">
@@ -20,7 +20,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PokemonCell" textLabel="IVF-va-70O" rowHeight="66" style="IBUITableViewCellStyleDefault" id="Roo-Xr-FU6" customClass="PokemonTableViewCell" customModule="SpintChallenge3" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PokemonCell" textLabel="IVF-va-70O" rowHeight="66" style="IBUITableViewCellStyleDefault" id="Roo-Xr-FU6">
                                 <rect key="frame" x="0.0" y="28" width="414" height="66"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Roo-Xr-FU6" id="toF-CA-tnV">
@@ -46,10 +46,10 @@
                             <outlet property="delegate" destination="XaO-h2-taf" id="5sG-3Z-GF6"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="hqE-Le-FXd">
+                    <navigationItem key="navigationItem" title="Pokemon List" id="hqE-Le-FXd">
                         <barButtonItem key="rightBarButtonItem" systemItem="search" id="0Ah-jF-YF2">
                             <connections>
-                                <segue destination="x1J-s9-gup" kind="show" identifier="SearchPokemon" id="mji-7C-EKG"/>
+                                <segue destination="x1J-s9-gup" kind="show" identifier="SearchPokemon" id="lYD-rq-xlh"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -165,7 +165,7 @@
             </objects>
             <point key="canvasLocation" x="1881" y="447"/>
         </scene>
-        <!--Pokemon Search-->
+        <!--Add Pokemon View Controller-->
         <scene sceneID="npo-QD-hFa">
             <objects>
                 <viewController id="x1J-s9-gup" customClass="AddPokemonViewController" customModule="SpintChallenge3" customModuleProvider="target" sceneMemberID="viewController">
@@ -279,7 +279,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="pu3-Vy-r4o"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Pokemon Search" id="2RD-XX-Vbh"/>
+                    <navigationItem key="navigationItem" id="2RD-XX-Vbh"/>
                     <connections>
                         <outlet property="abilityLabel" destination="IQk-Ma-hQa" id="fju-F5-DsG"/>
                         <outlet property="idLabel" destination="2xq-cI-if5" id="3wX-HL-75h"/>

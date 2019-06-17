@@ -8,41 +8,41 @@
 
 import Foundation
 
-struct Pokemon: Codable, Equatable {
-    
+struct Pokemon: Equatable, Codable {
     static func == (lhs: Pokemon, rhs: Pokemon) -> Bool {
-        return lhs.id == rhs.id &&
-            lhs.name == rhs.name
+        return lhs.id == rhs.id && lhs.name == rhs.name
     }
     
-    var id: Int
-    var name: String
-    var abilities: [Abilities]
-    var types: [PokeType]
-    var sprites: Sprites
-    
-    
+    let name: String
+    let id: Int
+    let abilities: [Ability]
+    let types: [Type]
+    let sprites: Sprite
     
 }
 
-struct Abilities: Codable {
-    var ability: Description
+struct Ability: Codable {
+    let ability: Species
 }
 
-struct PokeType: Codable {
-    let slot: Int
-    let type: Description
+struct Type: Codable {
+    let type: Species
 }
 
-struct Description: Codable {
+struct Species: Codable {
     let name: String
 }
 
+struct PokemonSearch: Codable {
+    
+    let results: [Pokemon]
+}
 
-struct Sprites: Codable {
-    var frontDefault: String
+struct Sprite: Codable {
+    let frontDefault: String
     
     enum CodingKeys: String, CodingKey {
         case frontDefault = "front_default"
     }
 }
+

@@ -8,11 +8,11 @@
 
 import UIKit
 
-class PokemonDetailViewController: UIViewController {
+class PokemonDetailViewController: UIViewController { // searchbar delegate
     
     var pokemons: Pokemon?
     var pokemonController: PokemonController?
-    
+    var pokemonContr = PokemonController()
     
     // MARK: - Outlets
     
@@ -29,15 +29,25 @@ class PokemonDetailViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    override func viewWillAppear(_ animated: Bool) {
+        guard let pokemon = pokemons else {return}
+        // at search
+        detailTitleLabel.text = pokemon.name
+        detailIDLabel.text = String(pokemon.id)
+        
+        // pokemon type
+        let pokemonIdentity: [String] = pokemon.types.map{ $0.type.name}
+        detailTypesLabel.text = "\(pokemonIdentity.joined(separator: ", "))"
+        // pokemon power or ability
+        let pokemonPower: [String] = pokemon.abilities.map{ $0.ability.name }
+        detailAbilityLabel.text = "\(pokemonPower.joined(separator: ", "))"
+        
+        // url for image
+        guard let url = URL(string: pokemon.sprites.frontDefault),
+            let image = try? Data(contentsOf: url) else {return}
+        
+        detailPokemonImageView.image = UIImage(data: image)
     }
-    */
+    
 
 }
